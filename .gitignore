@@ -11,6 +11,7 @@ db.sqlite3
 # Django static/media
 /static/
 */staticfiles/
+/media/
 
 # Environment
 .sbrw
