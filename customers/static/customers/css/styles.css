@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #007bff;
+}
+
+.navbar {
+    margin-bottom: 30px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+    font-size: 16px;
+}
+
+
+/* Alerts */
+.alert-info {
+    background-color: #17a2b8;
+    color: white;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+}
+
+footer a {
+    color: #f8f9fa;
+    font-size: 14px;
+}
+
+footer a:hover {
+    color: #007bff;
+}
+
+footer .list-inline-item {
+    margin-right: 20px;
+}
+
+footer .list-inline-item:last-child {
+    margin-right: 0;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .bike-image {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .navbar-nav .nav-link {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .card-header {
+        font-size: 18px;
+    }
+    
+    .card-body {
+        font-size: 14px;
+    }
+}

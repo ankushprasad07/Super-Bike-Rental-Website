@@ -1,0 +1,114 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6">
+      <img
+        src="{{ bike.image.url }}"
+        class="img-fluid bike-image"
+        alt="Bike Image"
+      />
+    </div>
+    <div class="col-md-6">
+      <h2 class="bike-name">{{ bike.name }}</h2>
+      <p><strong class="bike-strong">Brand:</strong> {{ bike.brand }}</p>
+      <p><strong class="bike-strong">Model Year:</strong> {{ bike.model_year }}</p>
+      <p><strong class="bike-strong">Engine Capacity:</strong> {{ bike.engine_capacity }}</p>
+      <p><strong class="bike-strong">Rent per Day:</strong> ₹{{ bike.price_per_day }}</p>
+      <p><strong class="bike-strong">Real Price:</strong> ₹{{ bike.real_price }}</p>
+      <p><strong class="bike-strong">Description:</strong> {{ bike.description }}</p>
+
+      {% if booked_dates %}
+      <div class="alert alert-warning mt-3">
+        <strong>Already Booked Dates:</strong>
+        <ul>
+          {% for date in booked_dates %}
+          <li>{{ date.rent_start_date }} to {{ date.rent_end_date }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% else %}
+      <p class="text-success">This bike is currently available.</p>
+      {% endif %}
+
+      <!-- Book Now Button -->
+      <a href="{% url 'booking_form' bike.id %}" class="btn btn-success" id="book-button">
+        Book This Bike
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Internal Styles -->
+<style>
+  /* General Styles */
+  .container {
+    padding: 30px 0;
+  }
+
+  /* Bike Image */
+  .bike-image {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  /* Bike Name */
+  .bike-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Strong Tag Styling */
+  .bike-strong {
+    font-weight: bold;
+    color: #007bff;  /* Blue color for strong text */
+  }
+
+  /* Book Now Button */
+  #book-button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 30px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  #book-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Alert for Booked Dates */
+  .alert-warning {
+    background-color: #ffc107;
+    color: #333;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+
+  /* Success Text for Availability */
+  .text-success {
+    font-size: 1.1rem;
+    color: #28a745;
+    font-weight: bold;
+  }
+
+  /* Mobile Responsiveness */
+  @media (max-width: 768px) {
+    .bike-name {
+      font-size: 1.5rem;
+    }
+    .bike-strong {
+      font-size: 1rem;
+    }
+    #book-button {
+      width: 100%;
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+</style>
+{% endblock %}

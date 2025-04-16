@@ -1,0 +1,103 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h3>Book {{ bike.name }}</h3>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+
+        <!-- Aadhar Card Number -->
+        <div class="mb-3">
+            <label for="adhar" class="form-label">Aadhar Card Number</label>
+            <input type="text" class="form-control" id="adhar" name="adhar" required>
+        </div>
+
+        <!-- License Number -->
+        <div class="mb-3">
+            <label for="license_number" class="form-label">License Number</label>
+            <input type="text" class="form-control" id="license_number" name="license_number" required>
+        </div>
+
+        <!-- License Image -->
+        <div class="mb-3">
+            <label for="license_image" class="form-label">License Image</label>
+            <input type="file" class="form-control" id="license_image" name="license_image" required>
+        </div>
+
+        <!-- Rent Start Date -->
+        <div class="mb-3">
+            <label for="rent_start_date" class="form-label">Rent Start Date</label>
+            <input type="date" class="form-control" id="rent_start_date" name="rent_start_date" required>
+        </div>
+
+        <!-- Rent End Date -->
+        <div class="mb-3">
+            <label for="rent_end_date" class="form-label">Rent End Date</label>
+            <input type="date" class="form-control" id="rent_end_date" name="rent_end_date" required>
+        </div>
+
+        <button type="submit" class="btn mb-2 btn-primary" id="book-button">Proceed to Payment</button>
+    </form>
+</div>
+
+<script>
+    // Make sure to properly encode the JSON data from Django
+    const bookedDates = JSON.parse(document.getElementById('booked_dates').textContent);
+
+    // Function to check availability
+    function checkAvailability() {
+        const rentStartDateInput = document.getElementById('rent_start_date');
+        const rentEndDateInput = document.getElementById('rent_end_date');
+        
+        // Parse the dates entered by the user
+        const rentStartDate = new Date(rentStartDateInput.value);
+        const rentEndDate = new Date(rentEndDateInput.value);
+
+        // If both dates are not selected, we can skip the check
+        if (!rentStartDate || !rentEndDate) {
+            return;
+        }
+
+        let isAvailable = true;
+
+        // Loop through the booked dates
+        bookedDates.forEach(booked => {
+            const bookedStartDate = new Date(booked.rent_start_date);
+            const bookedEndDate = new Date(booked.rent_end_date);
+
+            // Check if the user's dates overlap with any booked dates
+            if (
+                (rentStartDate >= bookedStartDate && rentStartDate <= bookedEndDate) || 
+                (rentEndDate >= bookedStartDate && rentEndDate <= bookedEndDate) || 
+                (rentStartDate <= bookedStartDate && rentEndDate >= bookedEndDate)
+            ) {
+                isAvailable = false;
+            }
+        });
+
+        // Disable the book button if unavailable, else enable it
+        document.getElementById('book-button').disabled = !isAvailable;
+    }
+
+    // Attach event listeners for the input fields
+    document.getElementById('rent_start_date').addEventListener('change', checkAvailability);
+    document.getElementById('rent_end_date').addEventListener('change', checkAvailability);
+</script>
+{% endblock %}

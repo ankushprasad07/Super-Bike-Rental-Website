@@ -1,0 +1,89 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Available Super Bikes</h2>
+        <div class="row">
+            {% for bike in bikes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-0 rounded-lg bike-card">
+                        <img src="{{ bike.image.url }}" class="card-img-top bike-image">
+                        <div class="card-body bike-card-body">
+                            <h5 class="card-title bike-name">{{ bike.name }}</h5>
+                            <p class="card-text bike-details">
+                                <strong class="bike-strong">Brand:</strong> {{ bike.brand }} <br>
+                                <strong class="bike-strong">Model Year:</strong> {{ bike.model_year }} <br>
+                                <strong class="bike-strong">Rent/Day:</strong> ₹{{ bike.price_per_day }} <br>
+                                <strong class="bike-strong">Real Price:</strong> ₹{{ bike.real_price }}
+                            </p>
+                            <a href="{% url 'bike_detail' bike.id %}" class="btn bike-btn">View Bike</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <style>
+        /* General Card Styles */
+        .bike-card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bike-image {
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .bike-card-body {
+            text-align: center;
+        }
+
+        .bike-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .bike-details {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* Styling the strong tag */
+        .bike-strong {
+            font-weight: bold;
+            color: #007bff;  /* Set the strong text color to blue */
+            font-size: 1.1rem; /* Slightly increase the size for emphasis */
+        }
+
+        /* Button Styles */
+        .bike-btn {
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .bike-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Heading Styles */
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Spacing Adjustments */
+        .container {
+            padding: 30px 0;
+        }
+    </style>
+{% endblock %}

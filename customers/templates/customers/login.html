@@ -1,0 +1,118 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-lg rounded-lg">
+        <div class="card-body p-5">
+          <h2 class="text-center mb-4 text-primary">Customer Login</h2>
+          
+          <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="id_username">Username</label>
+              <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value }}">
+            </div>
+            
+            <div class="form-group">
+              <label for="id_password">Password</label>
+              <input type="password" name="password" id="id_password" class="form-control" value="{{ form.password.value }}">
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+          </form>
+
+          <p class="mt-4 text-center">
+            Don't have an account? <a href="{% url 'customer_register' %}" class="text-primary">Register here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Internal Styles -->
+<style>
+  /* General Styles for Login Form */
+  .login-form {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-body {
+    background-color: #ffffff;
+    padding: 40px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  /* Form Styles */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .form-control {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .btn-primary {
+    font-weight: bold;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  /* Link Styles */
+  .text-primary {
+    color: #007bff;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .text-primary:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 30px;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+{% endblock %}
